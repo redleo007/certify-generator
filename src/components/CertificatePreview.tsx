@@ -13,11 +13,13 @@ interface CertificateData {
 interface CertificatePreviewProps {
   data: CertificateData;
   templateId?: string;
+  customTemplate?: string | null;
 }
 
 const CertificatePreview = forwardRef<HTMLDivElement, CertificatePreviewProps>(
-  ({ data, templateId = "neon" }, ref) => {
+  ({ data, templateId = "neon", customTemplate }, ref) => {
     const template = getTemplate(templateId);
+    const hasCustomTemplate = !!customTemplate;
 
     const formatDate = (dateString: string) => {
       if (!dateString) return "Date TBD";
@@ -76,26 +78,43 @@ const CertificatePreview = forwardRef<HTMLDivElement, CertificatePreviewProps>(
       <div
         ref={ref}
         className={cn(
-          "relative w-full aspect-[1.414/1] rounded-2xl overflow-hidden bg-gradient-to-br",
-          template.bgGradient
+          "relative w-full aspect-[1.414/1] rounded-2xl overflow-hidden",
+          !hasCustomTemplate && "bg-gradient-to-br",
+          !hasCustomTemplate && template.bgGradient
         )}
         style={{ minHeight: "400px" }}
       >
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-20">
-          <div
-            className="absolute top-0 left-0 w-full h-full"
-            style={{
-              background: `radial-gradient(circle at 20% 20%, ${template.accentColor} 0%, transparent 50%)`,
-            }}
+        {/* Custom Template Background */}
+        {hasCustomTemplate && (
+          <img
+            src={customTemplate}
+            alt="Custom certificate background"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div
-            className="absolute bottom-0 right-0 w-full h-full"
-            style={{
-              background: `radial-gradient(circle at 80% 80%, ${template.secondaryColor} 0%, transparent 50%)`,
-            }}
-          />
-        </div>
+        )}
+
+        {/* Background Pattern (only for preset templates) */}
+        {!hasCustomTemplate && (
+          <div className="absolute inset-0 opacity-20">
+            <div
+              className="absolute top-0 left-0 w-full h-full"
+              style={{
+                background: `radial-gradient(circle at 20% 20%, ${template.accentColor} 0%, transparent 50%)`,
+              }}
+            />
+            <div
+              className="absolute bottom-0 right-0 w-full h-full"
+              style={{
+                background: `radial-gradient(circle at 80% 80%, ${template.secondaryColor} 0%, transparent 50%)`,
+              }}
+            />
+          </div>
+        )}
+
+        {/* Semi-transparent overlay for custom templates to ensure text readability */}
+        {hasCustomTemplate && (
+          <div className="absolute inset-0 bg-black/40" />
+        )}
 
         {/* Decorative Border */}
         <div className={cn("absolute inset-3 md:inset-6 border-2 rounded-xl", template.borderStyle)} />
