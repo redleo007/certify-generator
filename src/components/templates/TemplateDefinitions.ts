@@ -1,64 +1,73 @@
 export interface TemplateStyle {
   id: string;
   name: string;
+  // keep emoji for backward compatibility (empty for professional templates)
   emoji: string;
+  // optional icon path (use public/assets icons or favicon)
+  icon?: string;
   description: string;
   bgGradient: string;
   accentColor: string;
   secondaryColor: string;
   borderStyle: string;
-  titleGradient: string;
-  decorations: "stars" | "corners" | "circuit" | "flowers";
+  // single solid title color for a professional look
+  titleColor: string;
+  decorations: "stars" | "corners" | "circuit" | "flowers" | "none";
 }
 
 export const templates: TemplateStyle[] = [
   {
-    id: "neon",
-    name: "Neon Vibe",
-    emoji: "✨",
-    description: "Gen-Z neon gradients",
-    bgGradient: "from-[#0a0a12] via-[#12121a] to-[#0a0a12]",
-    accentColor: "hsl(330, 100%, 65%)",
-    secondaryColor: "hsl(200, 100%, 55%)",
-    borderStyle: "border-white/10",
-    titleGradient: "from-neon-pink via-neon-purple to-neon-blue",
-    decorations: "stars",
-  },
-  {
     id: "formal",
     name: "Formal Classic",
-    emoji: "🎓",
-    description: "Elegant & professional",
-    bgGradient: "from-[#1a1a2e] via-[#16213e] to-[#0f0f1a]",
-    accentColor: "hsl(45, 90%, 55%)",
-    secondaryColor: "hsl(45, 70%, 45%)",
-    borderStyle: "border-amber-500/30",
-    titleGradient: "from-amber-300 via-yellow-400 to-amber-500",
+    emoji: "",
+    icon: "/favicon.ico",
+    description: "Elegant and professional certificate style",
+    // subtle dark-to-mid gradient for certificate background preview (preset)
+    bgGradient: "from-[#fbfbfb] via-[#f5f6f8] to-[#ffffff]",
+    accentColor: "#0b3d91",
+    secondaryColor: "#8a6b2b",
+    borderStyle: "border-[rgba(0,0,0,0.08)]",
+    titleColor: "#0b3d91",
     decorations: "corners",
   },
   {
+    id: "modern",
+    name: "Modern Minimal",
+    emoji: "",
+    icon: "/favicon.ico",
+    description: "Clean minimal layout with neutral tones",
+    bgGradient: "from-[#ffffff] via-[#fbfbfd] to-[#ffffff]",
+    accentColor: "#1f2937",
+    secondaryColor: "#6b7280",
+    borderStyle: "border-[rgba(0,0,0,0.06)]",
+    titleColor: "#111827",
+    decorations: "none",
+  },
+  {
     id: "tech",
-    name: "Tech Circuit",
-    emoji: "💻",
-    description: "Digital & futuristic",
-    bgGradient: "from-[#0a0f0d] via-[#0d1a14] to-[#0a0f0d]",
-    accentColor: "hsl(150, 100%, 50%)",
-    secondaryColor: "hsl(180, 100%, 45%)",
-    borderStyle: "border-emerald-500/20",
-    titleGradient: "from-emerald-400 via-teal-400 to-cyan-400",
+    name: "Tech Subtle",
+    emoji: "",
+    icon: "/favicon.ico",
+    description: "Slightly technical-but-professional style",
+    bgGradient: "from-[#fbfcfd] via-[#f7fafc] to-[#ffffff]",
+    accentColor: "#0f766e",
+    secondaryColor: "#0ea5a4",
+    borderStyle: "border-[rgba(0,0,0,0.06)]",
+    titleColor: "#0f766e",
     decorations: "circuit",
   },
   {
-    id: "casual",
-    name: "Casual Fun",
-    emoji: "🎉",
-    description: "Playful & vibrant",
-    bgGradient: "from-[#1a0a1a] via-[#2d1b3d] to-[#1a0a1a]",
-    accentColor: "hsl(280, 100%, 65%)",
-    secondaryColor: "hsl(320, 100%, 60%)",
-    borderStyle: "border-purple-500/20",
-    titleGradient: "from-purple-400 via-pink-400 to-rose-400",
-    decorations: "flowers",
+    id: "minimal",
+    name: "Simple Minimal",
+    emoji: "",
+    icon: "/favicon.ico",
+    description: "Very minimal with generous whitespace",
+    bgGradient: "from-[#ffffff] via-[#ffffff] to-[#ffffff]",
+    accentColor: "#111827",
+    secondaryColor: "#4b5563",
+    borderStyle: "border-[rgba(0,0,0,0.04)]",
+    titleColor: "#111827",
+    decorations: "none",
   },
 ];
 
