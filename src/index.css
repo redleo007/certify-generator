@@ -1,123 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+/* Tailwind base is expected in this file already (if using Tailwind directives keep them).
+   Add font-family and a .font-display utility for headings. */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root {
-    --background: 240 10% 6%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 10%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 10%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 330 100% 65%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 200 100% 55%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 240 10% 15%;
-    --muted-foreground: 240 5% 60%;
-
-    --accent: 150 100% 50%;
-    --accent-foreground: 240 10% 6%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 240 10% 20%;
-    --input: 240 10% 20%;
-    --ring: 330 100% 65%;
-
-    --radius: 1rem;
-
-    /* Gen-Z custom tokens */
-    --neon-pink: 330 100% 65%;
-    --neon-blue: 200 100% 55%;
-    --neon-green: 150 100% 50%;
-    --neon-purple: 270 100% 65%;
-    --glass-bg: 240 10% 10% / 0.6;
-    --glass-border: 0 0% 100% / 0.1;
-    
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(330 100% 65%) 0%, hsl(270 100% 65%) 50%, hsl(200 100% 55%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(240 10% 12%) 0%, hsl(240 10% 8%) 100%);
-    --gradient-accent: linear-gradient(90deg, hsl(330 100% 65%), hsl(200 100% 55%));
-    --gradient-glow: radial-gradient(ellipse at center, hsl(330 100% 65% / 0.3), transparent 70%);
-  }
-
-  .dark {
-    --background: 240 10% 6%;
-    --foreground: 0 0% 98%;
-  }
+:root {
+  --app-bg: #f7f8fa;
+  --muted: #6b7280;
+  --text: #111827;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+/* if you have Tailwind directives they should remain; keep below overrides after them */
+/* Example (if present in original): @tailwind base; @tailwind components; @tailwind utilities; */
 
-  body {
-    @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', sans-serif;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
-  }
+html, body, #root {
+  height: 100%;
+  background: var(--app-bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-@layer components {
-  .glass-card {
-    @apply bg-card/60 backdrop-blur-xl border border-white/10 rounded-2xl;
-  }
-
-  .neon-text {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .glow-pink {
-    box-shadow: 0 0 20px hsl(var(--neon-pink) / 0.4), 0 0 40px hsl(var(--neon-pink) / 0.2);
-  }
-
-  .glow-blue {
-    box-shadow: 0 0 20px hsl(var(--neon-blue) / 0.4), 0 0 40px hsl(var(--neon-blue) / 0.2);
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-glow-pulse {
-    animation: glow-pulse 3s ease-in-out infinite;
-  }
-
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
-  }
+/* Display font utility used in the codebase */
+.font-display {
+  font-family: "Merriweather", "Georgia", serif;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
+/* small accessible adjustments */
+a { color: inherit; }
+button { font-family: inherit; }
 
-@keyframes glow-pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+/* ensure certificate preview images are crisp when exported */
+img { image-rendering: -webkit-optimize-contrast; }

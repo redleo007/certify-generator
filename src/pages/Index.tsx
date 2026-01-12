@@ -5,7 +5,7 @@ import CertificatePreview from "@/components/CertificatePreview";
 import TemplateSelector from "@/components/TemplateSelector";
 import BulkUpload from "@/components/BulkUpload";
 import CustomTemplateUpload from "@/components/CustomTemplateUpload";
-import { Download, Sparkles, Zap, GraduationCap } from "lucide-react";
+import { Download, Zap, GraduationCap } from "lucide-react";
 import { toPng } from "html-to-image";
 import { toast } from "sonner";
 import JSZip from "jszip";
@@ -24,7 +24,8 @@ const Index = () => {
     eventDate: "",
     description: "",
   });
-  const [selectedTemplate, setSelectedTemplate] = useState("neon");
+  // default to formal professional template
+  const [selectedTemplate, setSelectedTemplate] = useState("formal");
   const [customTemplate, setCustomTemplate] = useState<string | null>(null);
   const [bulkParticipants, setBulkParticipants] = useState<string[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -36,15 +37,16 @@ const Index = () => {
     if (!certificateRef.current) return;
 
     if (!certificateData.participantName || !certificateData.eventName) {
-      toast.error("Please fill in participant name and event name!");
+      toast.error("Please fill in participant name and event name.");
       return;
     }
 
     try {
+      // export certificate on neutral paper background so images look professional
       const dataUrl = await toPng(certificateRef.current, {
         quality: 1,
         pixelRatio: 2,
-        backgroundColor: "#0a0a12",
+        backgroundColor: "#ffffff",
       });
 
       const link = document.createElement("a");
@@ -52,7 +54,7 @@ const Index = () => {
       link.href = dataUrl;
       link.click();
 
-      toast.success("Certificate downloaded! 🎉");
+      toast.success("Certificate downloaded.");
     } catch (error) {
       toast.error("Failed to download certificate. Please try again.");
     }
@@ -60,12 +62,12 @@ const Index = () => {
 
   const handleBulkGenerate = useCallback(async () => {
     if (!certificateData.eventName) {
-      toast.error("Please fill in the event name first!");
+      toast.error("Please fill in the event name first.");
       return;
     }
 
     if (bulkParticipants.length === 0) {
-      toast.error("No participants loaded!");
+      toast.error("No participants loaded.");
       return;
     }
 
@@ -86,21 +88,18 @@ const Index = () => {
           const dataUrl = await toPng(bulkCertificateRef.current, {
             quality: 1,
             pixelRatio: 2,
-            backgroundColor: "#0a0a12",
+            backgroundColor: "#ffffff",
           });
 
           // Convert data URL to blob
           const response = await fetch(dataUrl);
           const blob = await response.blob();
 
-          zip.file(
-            `certificate-${name.replace(/\s+/g, "-").toLowerCase()}.png`,
-            blob
-          );
+          zip.file(`certificate-${name.replace(/\s+/g, "-").toLowerCase()}.png`, blob);
         }
 
-        // Update progress
-        if ((i + 1) % 5 === 0 || i === bulkParticipants.length - 1) {
+        // Update progress periodically
+        if ((i + 1) % 10 === 0 || i === bulkParticipants.length - 1) {
           toast.info(`Processing ${i + 1}/${bulkParticipants.length}...`);
         }
       }
@@ -112,7 +111,7 @@ const Index = () => {
       link.href = URL.createObjectURL(content);
       link.click();
 
-      toast.success(`${bulkParticipants.length} certificates generated! 🎉`);
+      toast.success(`${bulkParticipants.length} certificates generated.`);
     } catch (error) {
       console.error(error);
       toast.error("Failed to generate certificates. Please try again.");
@@ -122,34 +121,23 @@ const Index = () => {
   }, [certificateData.eventName, bulkParticipants]);
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Background Glow Effects */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-neon-pink/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-neon-blue/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "-3s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-purple/10 rounded-full blur-3xl" />
-      </div>
-
-      {/* Grid Pattern Overlay */}
-      <div className="fixed inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] pointer-events-none" />
-
+    <div className="min-h-screen bg-gray-50 text-gray-800 relative overflow-hidden">
       {/* Content */}
       <div className="relative z-10">
         {/* Header */}
         <header className="py-6 px-4 md:px-8">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-gradient-to-br from-neon-pink to-neon-blue glow-pink">
-                <GraduationCap className="w-6 h-6 text-primary-foreground" />
+              <div className="p-2 rounded-lg bg-white border shadow-sm">
+                <GraduationCap className="w-6 h-6 text-gray-700" />
               </div>
               <div>
-                <h1 className="font-display font-bold text-lg">CAHCET</h1>
-                <p className="text-xs text-muted-foreground">Certificate Generator</p>
+                <h1 className="font-display font-semibold text-lg">CAHCET</h1>
+                <p className="text-xs text-gray-600">Certificate Generator</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground hidden sm:block">made with</span>
-              <Sparkles className="w-4 h-4 text-neon-pink" />
+              <span className="text-xs text-gray-600 hidden sm:block">Built for events & colleges</span>
             </div>
           </div>
         </header>
@@ -157,15 +145,15 @@ const Index = () => {
         {/* Hero Section */}
         <section className="py-8 md:py-16 px-4 md:px-8 text-center">
           <div className="max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 border border-white/10 mb-6">
-              <Zap className="w-4 h-4 text-neon-green" />
-              <span className="text-sm">Generate certificates in seconds ⚡</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 mb-6">
+              <Zap className="w-4 h-4 text-gray-600" />
+              <span className="text-sm">Create professional certificates quickly</span>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-4">
-              Create <span className="neon-text">Stunning</span> E-Certificates
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
+              Create Professional E-Certificates
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Generate professional certificates for your college events with our Gen-Z styled certificate generator ✨
+            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+              Generate certificates for your events with consistent, print-ready styling.
             </p>
           </div>
         </section>
@@ -180,10 +168,7 @@ const Index = () => {
                 setCustomTemplate(null);
               }}
             />
-            <CustomTemplateUpload
-              customTemplate={customTemplate}
-              onTemplateUpload={setCustomTemplate}
-            />
+            <CustomTemplateUpload customTemplate={customTemplate} onTemplateUpload={setCustomTemplate} />
           </div>
         </section>
 
@@ -193,10 +178,7 @@ const Index = () => {
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Form */}
               <div className="order-2 lg:order-1 space-y-6">
-                <CertificateForm
-                  data={certificateData}
-                  onChange={setCertificateData}
-                />
+                <CertificateForm data={certificateData} onChange={setCertificateData} />
 
                 <BulkUpload
                   participants={bulkParticipants}
@@ -206,25 +188,20 @@ const Index = () => {
                   isGenerating={isGenerating}
                 />
 
-                <Button
-                  variant="neon"
-                  size="xl"
-                  className="w-full"
-                  onClick={handleDownload}
-                >
-                  <Download className="w-5 h-5" />
+                <Button variant="default" size="xl" className="w-full" onClick={handleDownload}>
+                  <Download className="w-5 h-5 mr-2" />
                   Download Single Certificate
                 </Button>
               </div>
 
               {/* Preview */}
               <div className="order-1 lg:order-2">
-                <div className="glass-card p-4 md:p-6 sticky top-6">
+                <div className="bg-white p-4 md:p-6 rounded-lg shadow sticky top-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-3 h-3 rounded-full bg-destructive" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                    <div className="w-3 h-3 rounded-full bg-neon-green" />
-                    <span className="text-xs text-muted-foreground ml-2">Live Preview</span>
+                    <div className="w-3 h-3 rounded-full bg-red-400" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                    <div className="w-3 h-3 rounded-full bg-green-400" />
+                    <span className="text-xs text-gray-600 ml-2">Live Preview</span>
                   </div>
                   <CertificatePreview
                     ref={certificateRef}
@@ -240,20 +217,13 @@ const Index = () => {
 
         {/* Hidden certificate for bulk generation */}
         <div className="fixed -left-[9999px] -top-[9999px]">
-          <CertificatePreview
-            ref={bulkCertificateRef}
-            data={certificateData}
-            templateId={selectedTemplate}
-            customTemplate={customTemplate}
-          />
+          <CertificatePreview ref={bulkCertificateRef} data={certificateData} templateId={selectedTemplate} customTemplate={customTemplate} />
         </div>
 
         {/* Footer */}
-        <footer className="py-6 px-4 md:px-8 border-t border-white/5">
+        <footer className="py-6 px-4 md:px-8 border-t border-gray-200">
           <div className="max-w-7xl mx-auto text-center">
-            <p className="text-sm text-muted-foreground">
-              © 2026 C. Abdul Hakeem College of Engineering And Technology. All rights reserved. 🎓
-            </p>
+            <p className="text-sm text-gray-600">© 2026 C. Abdul Hakeem College of Engineering And Technology. All rights reserved.</p>
           </div>
         </footer>
       </div>
