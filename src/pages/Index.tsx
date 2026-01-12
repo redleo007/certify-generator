@@ -4,6 +4,7 @@ import CertificateForm from "@/components/CertificateForm";
 import CertificatePreview from "@/components/CertificatePreview";
 import TemplateSelector from "@/components/TemplateSelector";
 import BulkUpload from "@/components/BulkUpload";
+import CustomTemplateUpload from "@/components/CustomTemplateUpload";
 import { Download, Sparkles, Zap, GraduationCap } from "lucide-react";
 import { toPng } from "html-to-image";
 import { toast } from "sonner";
@@ -24,6 +25,7 @@ const Index = () => {
     description: "",
   });
   const [selectedTemplate, setSelectedTemplate] = useState("neon");
+  const [customTemplate, setCustomTemplate] = useState<string | null>(null);
   const [bulkParticipants, setBulkParticipants] = useState<string[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -170,10 +172,17 @@ const Index = () => {
 
         {/* Template Selector */}
         <section className="pb-8 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto space-y-6">
             <TemplateSelector
-              selectedId={selectedTemplate}
-              onSelect={setSelectedTemplate}
+              selectedId={customTemplate ? "" : selectedTemplate}
+              onSelect={(id) => {
+                setSelectedTemplate(id);
+                setCustomTemplate(null);
+              }}
+            />
+            <CustomTemplateUpload
+              customTemplate={customTemplate}
+              onTemplateUpload={setCustomTemplate}
             />
           </div>
         </section>
@@ -221,6 +230,7 @@ const Index = () => {
                     ref={certificateRef}
                     data={certificateData}
                     templateId={selectedTemplate}
+                    customTemplate={customTemplate}
                   />
                 </div>
               </div>
@@ -234,6 +244,7 @@ const Index = () => {
             ref={bulkCertificateRef}
             data={certificateData}
             templateId={selectedTemplate}
+            customTemplate={customTemplate}
           />
         </div>
 
