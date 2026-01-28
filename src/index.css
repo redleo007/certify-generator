@@ -1,30 +1,126 @@
-/* Tailwind base is expected in this file already (if using Tailwind directives keep them).
-   Add font-family and a .font-display utility for headings. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-:root {
-  --app-bg: #f7f8fa;
-  --muted: #6b7280;
-  --text: #111827;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 8%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 330 100% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 10% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 200 100% 50%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 10% 20%;
+    --input: 240 10% 20%;
+    --ring: 330 100% 60%;
+    --radius: 0.75rem;
+    
+    /* Neon colors */
+    --neon-pink: 330 100% 60%;
+    --neon-blue: 200 100% 50%;
+    --neon-green: 150 100% 50%;
+    --neon-purple: 270 100% 60%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html, body, #root {
+    @apply bg-background text-foreground min-h-screen;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
 }
 
-/* if you have Tailwind directives they should remain; keep below overrides after them */
-/* Example (if present in original): @tailwind base; @tailwind components; @tailwind utilities; */
+@layer components {
+  /* Glassmorphism card */
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-white/10 rounded-2xl;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
 
-html, body, #root {
-  height: 100%;
-  background: var(--app-bg);
-  color: var(--text);
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  /* Neon text glow */
+  .neon-text {
+    text-shadow: 
+      0 0 10px hsl(var(--neon-pink) / 0.8),
+      0 0 20px hsl(var(--neon-pink) / 0.6),
+      0 0 40px hsl(var(--neon-pink) / 0.4);
+  }
+
+  .neon-text-blue {
+    text-shadow: 
+      0 0 10px hsl(var(--neon-blue) / 0.8),
+      0 0 20px hsl(var(--neon-blue) / 0.6),
+      0 0 40px hsl(var(--neon-blue) / 0.4);
+  }
+
+  /* Neon border glow */
+  .neon-border {
+    box-shadow: 
+      0 0 10px hsl(var(--neon-pink) / 0.5),
+      0 0 20px hsl(var(--neon-pink) / 0.3),
+      inset 0 0 10px hsl(var(--neon-pink) / 0.2);
+  }
+
+  /* Animated gradient background */
+  .animated-bg {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--background)) 0%,
+      hsl(240 10% 8%) 25%,
+      hsl(270 20% 10%) 50%,
+      hsl(240 10% 8%) 75%,
+      hsl(var(--background)) 100%
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Floating orbs for background decoration */
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+  }
 }
 
-/* Display font utility used in the codebase */
-.font-display {
-  font-family: "Merriweather", "Georgia", serif;
+@layer utilities {
+  .font-display {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* Hover glow effect */
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+  .hover-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--neon-pink) / 0.5);
+  }
 }
-
-/* small accessible adjustments */
-a { color: inherit; }
-button { font-family: inherit; }
-
-/* ensure certificate preview images are crisp when exported */
-img { image-rendering: -webkit-optimize-contrast; }
