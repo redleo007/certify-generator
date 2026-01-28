@@ -121,23 +121,28 @@ const Index = () => {
   }, [certificateData.eventName, bulkParticipants]);
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 relative overflow-hidden">
+    <div className="min-h-screen animated-bg text-foreground relative overflow-hidden">
+      {/* Background Glow Orbs */}
+      <div className="glow-orb w-96 h-96 bg-neon-pink top-0 -left-48" />
+      <div className="glow-orb w-80 h-80 bg-neon-blue bottom-0 -right-40" style={{ animationDelay: '2s' }} />
+      <div className="glow-orb w-64 h-64 bg-neon-purple top-1/2 left-1/2" style={{ animationDelay: '4s' }} />
+
       {/* Content */}
       <div className="relative z-10">
         {/* Header */}
         <header className="py-6 px-4 md:px-8">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-white border shadow-sm">
-                <GraduationCap className="w-6 h-6 text-gray-700" />
+              <div className="p-2 rounded-lg glass-card neon-border">
+                <GraduationCap className="w-6 h-6 text-neon-pink" />
               </div>
               <div>
-                <h1 className="font-display font-semibold text-lg">CAHCET</h1>
-                <p className="text-xs text-gray-600">Certificate Generator</p>
+                <h1 className="font-display font-semibold text-lg neon-text">CAHCET</h1>
+                <p className="text-xs text-muted-foreground">Certificate Generator</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-600 hidden sm:block">Built for events & colleges</span>
+              <span className="text-xs text-muted-foreground hidden sm:block">Built for events & colleges ✨</span>
             </div>
           </div>
         </header>
@@ -145,15 +150,15 @@ const Index = () => {
         {/* Hero Section */}
         <section className="py-8 md:py-16 px-4 md:px-8 text-center">
           <div className="max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 mb-6">
-              <Zap className="w-4 h-4 text-gray-600" />
-              <span className="text-sm">Create professional certificates quickly</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-neon-pink/30 mb-6 animate-pulse-glow">
+              <Zap className="w-4 h-4 text-neon-pink" />
+              <span className="text-sm text-foreground">Create professional certificates quickly ⚡</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
+            <h1 className="text-4xl md:text-6xl font-display font-bold mb-4 bg-hero-gradient bg-clip-text text-transparent">
               Create Professional E-Certificates
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              Generate certificates for your events with consistent, print-ready styling.
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Generate <span className="text-neon-blue">fire</span> certificates for your events with that <span className="text-neon-pink">main character energy</span> ✨
             </p>
           </div>
         </section>
@@ -161,13 +166,15 @@ const Index = () => {
         {/* Template Selector */}
         <section className="pb-8 px-4 md:px-8">
           <div className="max-w-7xl mx-auto space-y-6">
-            <TemplateSelector
-              selectedId={customTemplate ? "" : selectedTemplate}
-              onSelect={(id) => {
-                setSelectedTemplate(id);
-                setCustomTemplate(null);
-              }}
-            />
+            <div className="glass-card p-1">
+              <TemplateSelector
+                selectedId={customTemplate ? "" : selectedTemplate}
+                onSelect={(id) => {
+                  setSelectedTemplate(id);
+                  setCustomTemplate(null);
+                }}
+              />
+            </div>
             <CustomTemplateUpload customTemplate={customTemplate} onTemplateUpload={setCustomTemplate} />
           </div>
         </section>
@@ -196,12 +203,12 @@ const Index = () => {
 
               {/* Preview */}
               <div className="order-1 lg:order-2">
-                <div className="bg-white p-4 md:p-6 rounded-lg shadow sticky top-6">
+                <div className="glass-card p-4 md:p-6 sticky top-6 neon-border">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-3 h-3 rounded-full bg-red-400" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <div className="w-3 h-3 rounded-full bg-green-400" />
-                    <span className="text-xs text-gray-600 ml-2">Live Preview</span>
+                    <div className="w-3 h-3 rounded-full bg-neon-pink animate-pulse" />
+                    <div className="w-3 h-3 rounded-full bg-neon-green animate-pulse" style={{ animationDelay: '0.2s' }} />
+                    <div className="w-3 h-3 rounded-full bg-neon-blue animate-pulse" style={{ animationDelay: '0.4s' }} />
+                    <span className="text-xs text-muted-foreground ml-2">Live Preview ✨</span>
                   </div>
                   <CertificatePreview
                     ref={certificateRef}
@@ -221,9 +228,9 @@ const Index = () => {
         </div>
 
         {/* Footer */}
-        <footer className="py-6 px-4 md:px-8 border-t border-gray-200">
+        <footer className="py-6 px-4 md:px-8 border-t border-border/50">
           <div className="max-w-7xl mx-auto text-center">
-            <p className="text-sm text-gray-600">© 2026 C. Abdul Hakeem College of Engineering And Technology. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">© 2026 C. Abdul Hakeem College of Engineering And Technology. All rights reserved. 💜</p>
           </div>
         </footer>
       </div>
