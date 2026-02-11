@@ -28,7 +28,7 @@ const CustomTemplateUpload = ({ customTemplate, onTemplateUpload }: CustomTempla
     reader.onload = (e) => {
       const result = e.target?.result as string;
       onTemplateUpload(result);
-      toast.success("Custom template uploaded! 🎨");
+      toast.success("Custom template uploaded.");
     };
     reader.readAsDataURL(file);
   };
@@ -70,7 +70,7 @@ const CustomTemplateUpload = ({ customTemplate, onTemplateUpload }: CustomTempla
   return (
     <div className="glass-card p-6">
       <h3 className="text-lg font-display font-bold mb-4 flex items-center gap-2">
-        📤 Upload Custom Template
+        Upload custom template
       </h3>
 
       <input
@@ -131,7 +131,7 @@ const CustomTemplateUpload = ({ customTemplate, onTemplateUpload }: CustomTempla
               </p>
             </div>
             <p className="text-xs text-muted-foreground">
-              Tip: Use landscape images (A4 size) for best results
+              Export your Canva design as a PNG (A4 landscape) for best results.
             </p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { templates, TemplateStyle } from "./templates/TemplateDefinitions";
+import { templates } from "./templates/TemplateDefinitions";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 
@@ -11,7 +11,7 @@ const TemplateSelector = ({ selectedId, onSelect }: TemplateSelectorProps) => {
   return (
     <div className="p-6">
       <h3 className="text-lg font-display font-bold mb-4 flex items-center gap-2 text-foreground">
-        🎨 Choose Template
+        Choose a template style
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {templates.map((template) => (
@@ -30,7 +30,6 @@ const TemplateSelector = ({ selectedId, onSelect }: TemplateSelectorProps) => {
                 <Check className="w-3 h-3 text-primary-foreground" />
               </div>
             )}
-            <span className="text-2xl mb-2 block">{template.emoji}</span>
             <h4 className="font-semibold text-sm text-foreground">{template.name}</h4>
             <p className="text-xs text-muted-foreground mt-1">
               {template.description}

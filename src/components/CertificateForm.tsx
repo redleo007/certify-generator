@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -27,7 +26,7 @@ const CertificateForm = ({ data, onChange }: CertificateFormProps) => {
         <div className="p-2 rounded-xl bg-gradient-to-br from-neon-pink to-neon-purple">
           <Sparkles className="w-5 h-5 text-primary-foreground" />
         </div>
-        <h2 className="text-xl font-display font-bold">Certificate Details ✨</h2>
+        <h2 className="text-xl font-display font-bold">Certificate details</h2>
       </div>
 
       <div className="space-y-5">

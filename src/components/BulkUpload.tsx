@@ -47,7 +47,7 @@ const BulkUpload = ({
           }
 
           onParticipantsLoaded(names);
-          toast.success(`Loaded ${names.length} participants! 🎉`);
+          toast.success(`Loaded ${names.length} participants.`);
         },
         header: true,
         skipEmptyLines: true,

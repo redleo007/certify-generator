@@ -142,7 +142,7 @@ const Index = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground hidden sm:block">Built for events & colleges ✨</span>
+              <span className="text-xs text-muted-foreground hidden sm:block">Built for college events and workshops</span>
             </div>
           </div>
         </header>
@@ -152,13 +152,13 @@ const Index = () => {
           <div className="max-w-4xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-neon-pink/30 mb-6 animate-pulse-glow">
               <Zap className="w-4 h-4 text-neon-pink" />
-              <span className="text-sm text-foreground">Create professional certificates quickly ⚡</span>
+              <span className="text-sm text-foreground">Bulk import, bulk export, zero hassle</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-display font-bold mb-4 bg-hero-gradient bg-clip-text text-transparent">
-              Create Professional E-Certificates
+              C.A.H.C.E.T. Certificate Generator
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Generate <span className="text-neon-blue">fire</span> certificates for your events with that <span className="text-neon-pink">main character energy</span> ✨
+              Upload your Canva template, import participant names, and deliver polished certificates in minutes.
             </p>
           </div>
         </section>
@@ -208,7 +208,7 @@ const Index = () => {
                     <div className="w-3 h-3 rounded-full bg-neon-pink animate-pulse" />
                     <div className="w-3 h-3 rounded-full bg-neon-green animate-pulse" style={{ animationDelay: '0.2s' }} />
                     <div className="w-3 h-3 rounded-full bg-neon-blue animate-pulse" style={{ animationDelay: '0.4s' }} />
-                    <span className="text-xs text-muted-foreground ml-2">Live Preview ✨</span>
+                    <span className="text-xs text-muted-foreground ml-2">Live preview</span>
                   </div>
                   <CertificatePreview
                     ref={certificateRef}
@@ -230,7 +230,7 @@ const Index = () => {
         {/* Footer */}
         <footer className="py-6 px-4 md:px-8 border-t border-border/50">
           <div className="max-w-7xl mx-auto text-center">
-            <p className="text-sm text-muted-foreground">© 2026 C. Abdul Hakeem College of Engineering And Technology. All rights reserved. 💜</p>
+            <p className="text-sm text-muted-foreground">© 2026 C. Abdul Hakeem College of Engineering And Technology. All rights reserved.</p>
           </div>
         </footer>
       </div>
