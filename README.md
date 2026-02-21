@@ -1,7 +1,19 @@
+# Certificate Generator
 
+Certify Generator is a tool designed to generate customizable certificates programmatically.
 
-## Project info
-Certificate Generator
+## Features
+- Dynamic certificate generation
+- Custom name insertion
+- Automated certificate creation
+- Export functionality
+
+## Technologies Used
+- TypeScript
+- JavaScript
+
+This project demonstrates automation and document generation capabilities.
+
 
 ## How can I edit this code?
 
